@@ -48,12 +48,39 @@ const App = () => {
     )
   }
 
-  //set the icon according toh the weather condition
+  
   let icon;
   console.log(data.weather[0].main);//seeing data we get the weather condition data.weather[0].main as you see in console of data.weather
 
+  //set the icon according toh the weather condition
+  switch(data.weather[0].main){
+    case 'Clouds':
+      icon = <IoMdCloudy />
+      break;
+    case 'Haze':
+      icon = <BsCloudHaze2Fill />
+      break;
+    case 'Rain':
+      icon = <IoMdRainy />
+      break;
+    case 'Clear':
+      icon = <IoMdSunny />
+      break;
+    case 'Drizzle':
+      icon = <BsCloudDrizzleFill />
+      break;
+    case 'Snow':
+      icon = <IoMdSnow />
+      break;
+    case 'Thunderstorm':
+      icon = <IoMdThunderstorm />
+      break;
+  }
+
   return (
-    <div>React App</div>
+    <div className='text-6xl'>
+      {icon}
+    </div>
   )
 }
 
