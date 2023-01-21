@@ -27,6 +27,27 @@ const App = () => {
   const [location, setLocation] = useState('Udaipur');
   const [inputValue, setInputValue] = useState('');
 
+  const handleInput = (e) => {
+    setInputValue(e.target.value);
+  }
+
+  const handleSubmit = (e) => {
+    console.log(inputValue);
+
+    //if input value is not empty then set location equal to input value
+    if(inputValue !== ''){
+      setLocation(inputValue);
+    }
+
+    //select input
+    const input = document.querySelector('input');
+    //clear input
+    input.value = '';
+
+    //prevent defaults
+    e.preventDefault();
+  }
+
   //fetch data usng useEffect hook
   useEffect(() => {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${APIkey}`;
@@ -51,7 +72,7 @@ const App = () => {
 
   
   let icon;
-  console.log(data.weather[0].main);//seeing data we get the weather condition data.weather[0].main as you see in console of data.weather
+  // console.log(data.weather[0].main);//seeing data we get the weather condition data.weather[0].main as you see in console of data.weather
 
   //set the icon according to the weather condition
   switch(data.weather[0].main){
@@ -87,8 +108,9 @@ const App = () => {
       {/*form */}
       <form className='h-16 bg-black/30 w-full max-w-[450px] rounded-full backdrop-blur-[32px] mb-6'>
         <div className='h-full relative flex items-center justify-between p-2'>
-          <input type="text" placeholder='Search by City or Country' className='flex-1 bg-transparent outline-none placeholder:text-white text-white text-lg font-light pl-6 h-full ' />
-          <button className='bg-[#1ab8ed] hover:bg-[#15abdd] w-20 h-12 rounded-full flex items-center justify-center transition'>
+          <input onChange={ (e) => handleInput(e) } type="text" placeholder='Search by City or Country' className='flex-1 bg-transparent outline-none placeholder:text-white text-white text-lg font-light pl-6 h-full ' />
+
+          <button onClick={ (e) => handleSubmit(e) } className='bg-[#1ab8ed] hover:bg-[#15abdd] w-20 h-12 rounded-full flex items-center justify-center transition'>
             <IoMdSearch className='text-2xl text-white' />
           </button>
         </div>
