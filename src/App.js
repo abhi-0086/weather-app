@@ -26,6 +26,7 @@ const App = () => {
   const [data, setData] = useState(null);
   const [location, setLocation] = useState('Udaipur');
   const [inputValue, setInputValue] = useState('');
+  const [animate, setAnimate] = useState(false);
 
   const handleInput = (e) => {
     setInputValue(e.target.value);
@@ -41,6 +42,18 @@ const App = () => {
 
     //select input
     const input = document.querySelector('input');
+
+    //if input is empty
+    if(input.value === ''){
+      //set animate to true
+      setAnimate(true);
+
+      //after 500ms reset animate to false
+      setTimeout(() => {
+        setAnimate(false);
+      },500);
+    }
+
     //clear input
     input.value = '';
 
@@ -106,7 +119,7 @@ const App = () => {
     <div className='w-full h-screen bg-gradientBg bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center'>
 
       {/*form */}
-      <form className='h-16 bg-black/30 w-full max-w-[450px] rounded-full backdrop-blur-[32px] mb-6'>
+      <form className={`${animate ? 'animate-shake' : 'animate-none'} h-16 bg-black/30 w-full max-w-[450px] rounded-full backdrop-blur-[32px] mb-6`}>
         <div className='h-full relative flex items-center justify-between p-2'>
           <input onChange={ (e) => handleInput(e) } type="text" placeholder='Search by City or Country' className='flex-1 bg-transparent outline-none placeholder:text-white text-white text-lg font-light pl-6 h-full ' />
 
